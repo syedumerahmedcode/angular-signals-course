@@ -38,6 +38,12 @@ export class HomeComponent {
     value: 1,
   });
 
+  constructor() {
+    effect(() => {
+      console.log(`counter value: ${this.counter().value}`);
+    });
+  }
+
   values = signal<number[]>([0]);
 
   tenXCounter = computed(() => {
