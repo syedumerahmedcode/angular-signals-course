@@ -28,14 +28,32 @@ import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  courses = signal<Course[]>([]);
+  //Adding # before a signal makes it private.
+  #courses = signal<Course[]>([]);
 
   //   coursesService = inject(CoursesServiceWithFetch);
   coursesService = inject(CoursesService);
 
+  beginnerCourses = computed(() => {
+    // All dependencies of the signal must come at the start of the signal
+    const courses = this.#courses();
+    return courses.filter((course) => course.category === 'BEGINNER');
+  });
+
+  advancedCourses = computed(() => {
+    // All dependencies of the signal must come at the start of the signal
+    const courses = this.#courses();
+    return courses.filter((course) => course.category === 'ADVANCED');
+  });
+
   constructor() {
+    effect(() => {
+      console.log(`Begineer courses:`, this.beginnerCourses());
+      console.log(`Advanced courses:`, this.advancedCourses());
+    });
+
     this.loadCourses().then(() =>
-      console.log(`All courses loaded: `, this.courses())
+      console.log(`All courses loaded: `, this.#courses())
     );
   }
 
@@ -45,7 +63,7 @@ export class HomeComponent {
     //   .then((courses) => this.courses.set(courses));
     try {
       const courses = await this.coursesService.loadAllCourses();
-      this.courses.set(courses);
+      this.#courses.set(courses);
     } catch (err) {
       alert('Error loading courses');
       console.error(err);
