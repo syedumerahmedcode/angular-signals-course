@@ -22,11 +22,11 @@ export class CoursesServiceWithFetch {
       },
       body: JSON.stringify(course),
     });
-    return await response.json();
+    return response.json();
   }
 
   async saveCourse(
-    courseId: String,
+    courseId: string,
     changes: Partial<Course>
   ): Promise<Course> {
     const response = await fetch(`${this.env.apiRoot}/courses/${courseId}`, {
@@ -36,13 +36,12 @@ export class CoursesServiceWithFetch {
       },
       body: JSON.stringify(changes),
     });
-    return await response.json();
+    return response.json();
   }
 
-  async deleteCourse(courseId: String): Promise<void> {
-    const response = await fetch(`${this.env.apiRoot}/courses/${courseId}`, {
+  async deleteCourse(courseId: string): Promise<void> {
+    await fetch(`${this.env.apiRoot}/courses/${courseId}`, {
       method: 'DELETE',
     });
-    // return await response.json();
   }
 }
