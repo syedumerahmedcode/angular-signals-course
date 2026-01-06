@@ -27,9 +27,12 @@ import {
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  /**
+   * By default, a signal is writeable.
+   */
   counter = signal(0);
 
   increment() {
-    this.counter.set(this.counter() + 1);
+    this.counter.update((counter) => counter + 1);
   }
 }
