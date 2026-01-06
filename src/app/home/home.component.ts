@@ -35,10 +35,18 @@ export class HomeComponent {
    * By default, a signal is writeable.
    */
   counter = signal<Counter>({
-    value: 100,
+    value: 1,
   });
 
   values = signal<number[]>([0]);
+
+  tenXCounter = computed(() => {
+    /**
+     * invoke the source signal in the body of the computed counter
+     */
+    const val = this.counter().value;
+    return val * 10;
+  });
 
   increment() {
     this.counter.update((counter) => ({
