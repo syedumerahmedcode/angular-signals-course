@@ -19,6 +19,7 @@ import {
   outputToObservable,
   outputFromObservable,
 } from '@angular/core/rxjs-interop';
+import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
 
 @Component({
   selector: 'home',
@@ -29,5 +30,24 @@ import {
 export class HomeComponent {
   courses = signal<Course[]>([]);
 
-  oursesService = inject(CoursesService);
+  coursesService = inject(CoursesServiceWithFetch);
+
+  constructor() {
+    this.loadCourses().then(() =>
+      console.log(`All courses loaded: `, this.courses())
+    );
+  }
+
+  async loadCourses() {
+    // this.coursesService
+    //   .loadAllCourses()
+    //   .then((courses) => this.courses.set(courses));
+    try {
+      const courses = await this.coursesService.loadAllCourses();
+      this.courses.set(courses);
+    } catch (err) {
+      alert('Error loading courses');
+      console.error(err);
+    }
+  }
 }
