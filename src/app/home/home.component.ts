@@ -97,6 +97,10 @@ export class HomeComponent {
 
   async onCourseDeleted(courseId: string) {
     try {
+      // await this.coursesService.deleteCourse(courseId);
+      // const courses = this.#courses();
+      // const newCourses = courses.filter((course) => course.id !== courseId);
+      // this.#courses.set(newCourses);
       await this.coursesService.deleteCourse(courseId);
       const courses = this.#courses();
       const newCourses = courses.filter((course) => course.id !== courseId);
