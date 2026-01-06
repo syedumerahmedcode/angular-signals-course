@@ -20,6 +20,10 @@ import {
   outputFromObservable,
 } from '@angular/core/rxjs-interop';
 
+type Counter = {
+  value: number;
+};
+
 @Component({
   selector: 'home',
   imports: [MatTabGroup, MatTab, CoursesCardListComponent],
@@ -30,9 +34,15 @@ export class HomeComponent {
   /**
    * By default, a signal is writeable.
    */
-  counter = signal(0);
+  counter = signal<Counter>({
+    value: 100,
+  });
 
   increment() {
-    this.counter.update((counter) => counter + 1);
+    this.counter.update((counter) => ({
+      ...counter,
+      value: counter.value + 1,
+    }));
+    // this.counter.update((counter) => counter + 1);
   }
 }
