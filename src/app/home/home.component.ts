@@ -38,11 +38,17 @@ export class HomeComponent {
     value: 100,
   });
 
+  values = signal<number[]>([0]);
+
   increment() {
     this.counter.update((counter) => ({
       ...counter,
       value: counter.value + 1,
     }));
     // this.counter.update((counter) => counter + 1);
+  }
+
+  append() {
+    this.values.update((values) => [...values, values[values.length - 1] + 1]);
   }
 }
