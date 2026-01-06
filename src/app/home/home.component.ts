@@ -112,9 +112,18 @@ export class HomeComponent {
   }
 
   async onAddCourse() {
+    // const newCourse = await openEditCourseDialog(this.dialog, {
+    //   mode: 'create',
+    //   title: 'Creating a new course',
+    // });
+    // if (!newCourse) {
+    //   return;
+    // }
+    // const newCourses = [...this.#courses(), newCourse];
+    // this.#courses.set(newCourses);
     const newCourse = await openEditCourseDialog(this.dialog, {
       mode: 'create',
-      title: 'Create New Course',
+      title: 'Creating a new course',
     });
     if (!newCourse) {
       return;
