@@ -81,14 +81,12 @@ export class HomeComponent {
 
   async loadCourses() {
     try {
-      this.loadingService.loadingOn();
+      // this.loadingService.loadingOn();
       const courses = await this.coursesService.loadAllCourses();
       this.#courses.set(courses.sort(sortCoursesBySeqNo));
     } catch (err) {
       //this.messageService.showMessage(`Error loading courses!`, 'error');
       console.error(err);
-    } finally {
-      this.loadingService.loadingOff();
     }
   }
 
