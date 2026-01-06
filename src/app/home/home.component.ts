@@ -20,10 +20,6 @@ import {
   outputFromObservable,
 } from '@angular/core/rxjs-interop';
 
-type Counter = {
-  value: number;
-};
-
 @Component({
   selector: 'home',
   imports: [MatTabGroup, MatTab, CoursesCardListComponent],
@@ -31,38 +27,7 @@ type Counter = {
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  /**
-   * By default, a signal is writeable.
-   */
-  counter = signal<Counter>({
-    value: 1,
-  });
+  courses = signal<Course[]>([]);
 
-  constructor() {
-    effect(() => {
-      console.log(`counter value: ${this.counter().value}`);
-    });
-  }
-
-  values = signal<number[]>([0]);
-
-  tenXCounter = computed(() => {
-    /**
-     * invoke the source signal in the body of the computed counter
-     */
-    const val = this.counter().value;
-    return val * 10;
-  });
-
-  increment() {
-    this.counter.update((counter) => ({
-      ...counter,
-      value: counter.value + 1,
-    }));
-    // this.counter.update((counter) => counter + 1);
-  }
-
-  append() {
-    this.values.update((values) => [...values, values[values.length - 1] + 1]);
-  }
+  oursesService = inject(CoursesService);
 }
